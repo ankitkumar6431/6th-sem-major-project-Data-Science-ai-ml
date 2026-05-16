@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+<nav>
+    <div>
+        <a href="{{ url_for('home') }}">Home</a>  <!-- Corrected from 'index.html' -->
+        <a href="{{ url_for('input_page') }}">Upload Image</a>  <!-- Corrected from 'input.html' -->
+        <a href="{{ url_for('login') }}">Login</a>  <!-- Corrected from 'login.html' -->
+        <a href="#" onclick="showReports()">Reports</a>
+    </div>
+    <div>
+        <a href="#" onclick="openProfilePopup()">Profile</a>
+    </div>
+</nav>
+
+<div class="container" id="home-section">
+    <h1>Welcome to Your Dashboard</h1>
+    <p>Here you can manage your profile and view reports.</p>
+</div>
+
+<div class="container report-container" id="reports-section">
+    <h1>Reports</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Report ID</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>report 1</td>
+                <td>2023-10-01</td>
+                <td class="report-actions">
+                    <button class="delete-btn" onclick="deleteReport(1)">Delete</button>
+                    <button class="download-btn" onclick="downloadReport(1)">Download</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>report 2</td>
+                <td>2023-09-15</td>
+                <td class="report-actions">
+                    <button class="delete-btn" onclick="deleteReport(2)">Delete</button>
+                    <button class="download-btn" onclick="downloadReport(2)">Download</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="profile-popup" id="profile-popup">
+    <h2>User Profile</h2>
+    <p><strong>Name:</strong> John Doe</p>
+    <p><strong>Email:</strong> johndoe@example.com</p>
+    <button class="btn" onclick="openProfileEdit()">Edit Profile</button>
+    <button class="btn" onclick="closeProfilePopup()">Close</button>
+</div>
+
+<div class="profile-edit" id="profile-edit">
+    <div class="profile-edit-header">
+        <h3>Edit Profile</h3>
+        <button class="profile-edit-close" onclick="closeProfileEdit()">&times;</button>
+    </div>
+    <div class="profile-edit-form">
+        <div class="form-group">
+            <label for="edit-name">Full Name</label>
+            <input type="text" id="edit-name" placeholder="Enter your full name" value="John Doe">
+        </div>
+        <div class="form-group">
+            <label for="edit-email">Email</label>
+            <input type="email" id="edit-email" placeholder="Enter your email" value="johndoe@example.com">
+        </div>
+        <button class="btn" onclick="saveProfile()">Save Changes</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

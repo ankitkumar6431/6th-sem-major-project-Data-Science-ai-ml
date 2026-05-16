@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <title>Login & Register</title>
+</head>
+<body>
+    <!-- Display Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <!-- Login Form -->
+        <div class="form-container active" id="login-container">
+            <form action="{{ url_for('login') }}" method="POST" id="login-form">
+                <h1>Login</h1>
+                <input type="email" placeholder="Email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Email">
+                <input type="password" placeholder="Password" name="password" required aria-label="Password">
+                <button type="submit" aria-label="Login">Login</button>
+                <span>Don't have an account? <a href="#" id="show-register" aria-label="Switch to Register Form">Register</a></span>
+            </form>
+        </div>
+
+        <!-- Register Form -->
+        <div class="form-container" id="register-container">
+            <form action="{{ url_for('register') }}" method="POST" id="register-form">
+                <h1>Register</h1>
+                <input type="text" placeholder="Full Name" name="name" required aria-label="Full Name">
+                <input type="email" placeholder="Email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-label="Email">
+                <input type="password" placeholder="Password" name="password" required aria-label="Password">
+                <button type="submit" aria-label="Register">Register</button>
+                <span>Already have an account? <a href="#" id="show-login" aria-label="Switch to Login Form">Login</a></span>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include JavaScript -->
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>
