@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plant Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
+</head>
+<body>
+    <!-- Display Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h1>🌿 Plant Disease Detection</h1>
+
+        <form action="/predict" method="POST" enctype="multipart/form-data" id="uploadForm">
+            <label for="fileInput" class="custom-file-upload">
+                Choose Image
+                <input type="file" name="file" id="fileInput" accept="image/*" required>
+            </label>
+            <span id="fileName">No file chosen</span>
+
+            <!-- Live preview before submit -->
+            <div class="preview" id="livePreview" style="display: none;">
+                <h2>Image Preview (Before Submit):</h2>
+                <img id="imagePreview" src="#" alt="Image Preview">
+            </div>
+
+            <button type="submit" aria-label="Predict Disease">Predict</button>
+        </form>
+
+        <!-- After prediction: show uploaded image and result -->
+        {% if image_path %}
+        <div class="preview">
+            <h2>Uploaded Image (After Submit):</h2>
+            <img src="{{ url_for('static', filename='uploads/' + image_path) }}" alt="Uploaded Image">
+        </div>
+        {% endif %}
+
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction Result:</h2>
+            <p>{{ prediction }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Include JavaScript -->
+    <script src="{{ url_for('static', filename='js/input.js') }}"></script>
+</body>
+</html>
